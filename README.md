@@ -23,6 +23,25 @@ All this data stored in MySQL database and you can use it to create:
 * heat map of faction activity
 * statistics (symmary or daily/monthly)
 
-# Installation
+# Installation & Running
 
-Soon.
+Python 2.7.x required.
+
+First of all we need preinstall dependencies, such as:
+* PyMySQL
+* sleekxmpp
+* pyasn1 (optional)
+* pyasn1_modules (optional)
+
+then you just need to change dir to where you put source
+
+For Linux based (this will start a daemon - kind of ;) ):
+cd /path/to/ingress-eiacp/dir
+python __init__.py start
+
+For Other (this will start an application in window):
+cd /path/to/ingress-eiacp/dir
+python __init__.py
+
+
+btw grant write permissions to this dir (it's for writing log - stdout.log)
