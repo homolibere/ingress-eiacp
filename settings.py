@@ -4,7 +4,7 @@ import os.path
 
 import ConfigParser
 
-login_url = 'https://accounts.google.com/ServiceLogin?service=ah&passive=false&continue=https://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttp://www.ingress.com/intel&ltmpl=gm'
+login_url = 'https://accounts.google.com/ServiceLogin?service=ah&passive=false&continue=https://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://www.ingress.com/intel&ltmpl=gm'
 chat_url = 'http://www.ingress.com/rpc/dashboard.getPaginatedPlextsV2'
 score_url = 'http://www.ingress.com/rpc/dashboard.getGameScore'
 post_data = None
@@ -28,6 +28,7 @@ def load_config():
         result['smtp_server'] = config.get('general', 'smtp_server')
         result['smtp_port'] = config.get('general', 'smtp_port')
         result['timeout'] = config.getint('general', 'timeout')
+        result['use_gtalk'] = config.getint('general', 'use_gtalk')
     else:
         raise Exception("No configuration file found")
     return result

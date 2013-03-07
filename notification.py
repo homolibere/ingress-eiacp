@@ -6,6 +6,7 @@ import sleekxmpp
 import ssl
 import traceback
 import threading
+import logging
 
 import settings
 
@@ -73,7 +74,8 @@ def init_jabber():
 
 def close_jabber():
     global xmpp
-    xmpp.disconnect(send_close=True)
+    if xmpp <> None:
+        xmpp.disconnect(send_close=True)
 
 def send_reg_mail(mailto, nickname, passwd):
     global cfg
@@ -99,9 +101,11 @@ def send_mail_message(mailto, message):
 
 def send_jabber_message(sendto, message):
     global xmpp
-    xmpp.send_message(sendto, message)
+    if xmpp <> None:
+        xmpp.send_message(sendto, message)
 
 def send_jabber_invitation(sendto):
     global xmpp
-    xmpp.send_presence(pto=sendto, ptype='subscribe')
-    xmpp.send_presence_subscription(pto=sendto, ptype='subscribe', pnick='Ingress Notify Bot')
+    if xmpp <> None:
+        xmpp.send_presence(pto=sendto, ptype='subscribe')
+        xmpp.send_presence_subscription(pto=sendto, ptype='subscribe', pnick='Ingress Notify Bot')

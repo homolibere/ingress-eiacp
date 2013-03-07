@@ -2,6 +2,9 @@ __author__ = 'homolibere'
 
 import json
 import database
+import logging
+
+log = logging.getLogger(__name__)
 
 def parse_score_to_db(input_data):
     json_data = json.loads(input_data)
@@ -13,7 +16,7 @@ def parse_score_to_db(input_data):
 def parse_chat_to_db(input_data):
     json_data = json.loads(input_data)
     if json_data.get('error'):
-        print json_data['error']
+        log.error(json_data['error'])
     else:
         database.init_connection()
         #-1 - unknown action
@@ -114,14 +117,14 @@ def parse_chat_to_db(input_data):
                 if (plext_text.find('destroyed') > -1 and plext_text.find('Portal Mod') > -1):
                     action_type = 9
             from datetime import datetime
-#            print message_guid, " : ", datetime.fromtimestamp(int(time_stamp / 1000)), " : ", user_guid, " : ", portal_from_guid, " : ", portal_to_guid, " : ",\
-#               plext_text.encode('utf8'), " : ", int(action_type), " : ", plext_type, " : ", plext_team, " : ", is_secured
+            full_params = (message_guid, datetime.fromtimestamp(int(time_stamp / 1000)), user_guid, portal_from_guid, portal_to_guid, \
+                plext_text.encode('utf8'), int(action_type), plext_type, plext_team, is_secured)
+            log.debug(full_params)
             if (user_guid <> None and user_plain <> None and user_team <> None):
                 database.insert_player((user_guid, user_plain, user_team))
             if (portal_to <> None):
                 database.insert_portal((portal_to_guid, portal_to_adress.encode('utf8'), int(portal_to_lat), int(portal_to_lng), portal_to_name.encode('utf8')))
             if (portal_from <> None):
                 database.insert_portal((portal_from_guid, portal_from_adress.encode('utf8'), portal_from_lat, portal_from_lng, portal_from_name.encode('utf8')))
-            database.insert_event((message_guid, datetime.fromtimestamp(int(time_stamp / 1000)), user_guid, portal_from_guid, portal_to_guid,\
-                        plext_text.encode('utf8'), int(action_type), plext_type, plext_team, is_secured))
+            database.insert_event(full_params)
         database.close_connection()
