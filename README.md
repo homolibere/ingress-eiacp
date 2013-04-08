@@ -1,3 +1,12 @@
+# Sorry, but this tool is dead
+
+
+"We appreciate your enthusiasm in sharing Ingress information. We hope you are enjoying the game. Unfortunately, your tool and the methods used to create it are in violation of our Terms of Service. We would greatly appreciate it if you remove all works, and refrain from creating any future works using Ingress content.
+
+Thank you,
+
+NianticOps"
+
 # Introduction
 
 This project is a extension to Google's game - Ingress. Since there is no official API for this game (so far) and no other way to get more info about players and portals, i decided to create a python "daemon".
